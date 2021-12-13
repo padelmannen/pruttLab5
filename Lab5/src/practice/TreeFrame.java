@@ -1,10 +1,15 @@
-package recursiveTree;
+package practice;
 
 import javax.swing.*;
-import javax.swing.tree.*;
-import java.io.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 class TreeFrame extends JFrame implements ActionListener {
     JCheckBox box;
     JTree tree;
@@ -66,7 +71,7 @@ class TreeFrame extends JFrame implements ActionListener {
         String info = path.getLastPathComponent().toString();
         JOptionPane.showMessageDialog(this, info);
     }
-    public static void main(String[] u) throws FileNotFoundException {
+    public static void main(String[] u) {
         new TreeFrame();
     }
 }

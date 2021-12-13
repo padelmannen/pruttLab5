@@ -3,6 +3,7 @@ package recursiveTree;
 import javax.swing.*;
 import javax.swing.tree.*;
 import java.io.*;
+
 class DirTree2 extends TreeFrame {
     static String directory=".";
     // Overrides method in TreeFrame
