@@ -8,15 +8,14 @@ import java.util.*;
 
 class LifeTree extends TreeFrame {
 
-    String currLevel;
-    Deque<String> levelStack;
+    static String currLevel;
+    static Deque<String> levelStack = new ArrayDeque<>();
     static Scanner sc;
 
     // Overrides method in TreeFrame
     void initTree() {
-        levelStack = new ArrayDeque<>();
             try {
-                File file = new File("D:/Users/Jesper/KTH/Prutten/pruttLab5/Lab5/src/recursiveTree/Liv.txt");
+                File file = new File("Lab5/src/recursiveTree/Liv.txt");
                 sc = new Scanner(file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -26,7 +25,7 @@ class LifeTree extends TreeFrame {
         currLevel = root.getNLevel();
         levelStack.push(currLevel);
         treeModel = new DefaultTreeModel(root);
-        tree = new JTree( treeModel );
+        tree = new JTree(treeModel);
         tree.setBackground(Color.green);
         buildTree(root);
     }
@@ -43,7 +42,6 @@ class LifeTree extends TreeFrame {
     }
     private void buildTree(Node parent) {
         while ((Objects.equals(parent.getNLevel(), levelStack.peek())) && sc.hasNext()) {
-
             String currRow = sc.nextLine();
 
             if (currRow.contains("</")) {
@@ -52,12 +50,9 @@ class LifeTree extends TreeFrame {
             else {
                 Node child = new Node(currRow);
                 currLevel = child.getNLevel();
-
-                if (!Objects.equals(currLevel, levelStack.peek())) {   //if level att current parsed node is lower
-                    levelStack.push(currLevel);                         //then we go down in recursion
-                    parent.add(child);
-                    buildTree(child);
-                }
+                levelStack.push(currLevel);
+                parent.add(child);
+                buildTree(child);
             }
         }
     }
@@ -70,7 +65,7 @@ class LifeTree extends TreeFrame {
         String level = clicked.getNLevel();
         String info = clicked.getInfo();
         String name = clicked.getName();
-        JOptionPane.showMessageDialog( this, level + ": "+ name + info);  //printing details
+        JOptionPane.showMessageDialog( this, level + ": "+ name + info);  //printing details 
     }
 
     public static void main(String[] args) {
