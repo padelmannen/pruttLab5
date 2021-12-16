@@ -16,7 +16,7 @@ class LifeTree extends TreeFrame {
     void initTree() {
         levelStack = new ArrayDeque<>();
             try {
-                File file = new File("C:/Users/jespe/OneDrive/Dokument/KTH/Prutten/pruttLab5/Lab5/src/recursiveTree/Liv.txt");
+                File file = new File("D:/Users/Jesper/KTH/Prutten/pruttLab5/Lab5/src/recursiveTree/Liv.txt");
                 sc = new Scanner(file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -42,22 +42,21 @@ class LifeTree extends TreeFrame {
         }
     }
     private void buildTree(Node parent) {
-        while (Objects.equals(parent.getNLevel(), levelStack.peek())) {
-            if (sc.hasNext()) {
-                String currRow = sc.nextLine();
+        while ((Objects.equals(parent.getNLevel(), levelStack.peek())) && sc.hasNext()) {
 
-                if (currRow.contains("</")) {
-                    levelChecker(currRow);
-                }
-                else {
-                    Node child = new Node(currRow);
-                    currLevel = child.getNLevel();
+            String currRow = sc.nextLine();
 
-                    if (!Objects.equals(currLevel, levelStack.peek())) {
-                        levelStack.push(currLevel);
-                        parent.add(child);
-                        buildTree(child);
-                    }
+            if (currRow.contains("</")) {
+                levelChecker(currRow);   //checks that we have the correct endTag and pops next element from stack
+            }
+            else {
+                Node child = new Node(currRow);
+                currLevel = child.getNLevel();
+
+                if (!Objects.equals(currLevel, levelStack.peek())) {   //if level att current parsed node is lower
+                    levelStack.push(currLevel);                         //then we go down in recursion
+                    parent.add(child);
+                    buildTree(child);
                 }
             }
         }
@@ -71,7 +70,7 @@ class LifeTree extends TreeFrame {
         String level = clicked.getNLevel();
         String info = clicked.getInfo();
         String name = clicked.getName();
-        JOptionPane.showMessageDialog( this, level + ": "+ name + info);
+        JOptionPane.showMessageDialog( this, level + ": "+ name + info);  //printing details
     }
 
     public static void main(String[] args) {
